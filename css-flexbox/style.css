@@ -51,7 +51,7 @@
 /* For valid properties and their values, see:
  https: //css-tricks.com/snippets/css/a-guide-to-flexbox/ */
 
-.container-guide {
+.container-outline {
   /* this border helps us see the dimensions of the flex container */
   border: 10px solid teal;
 }
