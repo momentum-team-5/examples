@@ -1,0 +1,100 @@
+* {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Colors for each box */
+
+.box1 {
+  background: #1abc9c;
+}
+
+.box2 {
+  background: #3498db;
+}
+
+.box3 {
+  background: #9b59b6;
+}
+
+.box4 {
+  background: #34495e;
+}
+
+.box5 {
+  background: #f1c40f;
+}
+
+.box6 {
+  background: #e67e22;
+}
+
+.box7 {
+  background: #e74c3c;
+}
+
+.box8 {
+  background: #bdc3c7;
+}
+
+.box9 {
+  background: #2ecc71;
+}
+
+.box10 {
+  background: #16a085;
+}
+
+/*********** FLEXBOX **************/
+
+/* For valid properties and their values, see:
+ https: //css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+
+.container-guide {
+  /* this border helps us see the dimensions of the flex container */
+  border: 10px solid teal;
+}
+
+/*
+  We're using the "container" class for our parent element, the flex container.
+  The flex container always spans the width of the window.
+  If you change it to inline-flex, the box will be just wide enough to hold the content instead.
+*/
+
+.container {
+  /* setting this is what activates flexbox */
+  display: flex;
+  /* row is the default value and so does not need to be specified */
+  flex-direction: row;
+  /* this rule tells our flex container to expand vertically to the size of the viewport (the browser window) */
+  /* try playing with this value */
+  height: 100vh;
+  /* justify-content: alignment on the main axis; try playing with this value */
+  justify-content: flex-start;
+  /* align-items: alignment on the cross-axis; try playing with this value */
+  align-items: stretch;
+  /* flex-wrap: the default value is nowrap */
+  flex-wrap: wrap;
+  /* when you have content that wraps, you might need to set align-content */
+  /* stretch is the default value */
+  align-content: stretch;
+}
+
+/* We're using the "box" class on each div that is a flex-item, a child of the flex-container */
+
+.box {
+  color: white;
+  font-size: 100px;
+  text-align: center;
+  text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  /* width defines a size for our boxes that is more than just enough to fit content */
+  /* try playing with this value */
+  width: 300px;
+  /* the flex property is a shorthand for flex-grow, flex-shrink, and flex-basis */
+  /* these properties tell a flex-item how to expand or shrink to fill extra space */
+  /* flex: 1 is the same as setting flex-grow and flex-shrink to 1, and flex-basis to 0. */
+  /* try un-commenting this and playing with the values to see what changes.
+  /* flex: 1; */
+}
