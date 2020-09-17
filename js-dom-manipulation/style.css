@@ -1,0 +1,36 @@
+.border-purple {
+  border: 20px solid purple;
+}
+
+.hidden {
+  display: none;
+}
+
+.number-buttons {
+  display: flex;
+}
+
+.number {
+  width: 150px;
+  height: 150px;
+  font-size: 48px;
+  margin: 10px;
+  color: white;
+  padding-left: 20px;
+}
+
+.red {
+  background-color: #dc0073;
+}
+
+.blue {
+  background-color: #008bf8;
+}
+
+.yellow {
+  background-color: #f5b700;
+}
+
+.message {
+  font-size: 24px;
+}
