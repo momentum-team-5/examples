@@ -12,9 +12,6 @@ fetch(userUrl)
     targetEl.appendChild(headerEl)
   })
 
-/* eslint-disable prefer-const, no-unused-vars */
-/* globals fetch */
-
 // I am putting this in global scope so I can reference it in multiple functions
 const orgUrl = 'https://api.github.com/orgs/momentum-team-5'
 
