@@ -9,7 +9,6 @@ document.addEventListener('submit', function (event) {
 
 todoList.addEventListener('click', function (e) {
   if (e.target.matches('.delete')) {
-    console.log(e.target.parentElement.dataset.id)
     deleteTodo(e.target.parentElement.dataset.id)
   }
 })
@@ -28,6 +27,7 @@ function renderTodoItem (todo) {
   const todoList = document.querySelector('#todo-list')
   const todoItemEl = document.createElement('li')
   todoItemEl.dataset.id = todo.id
+  todoItemEl.id = `item-${todo.id}`
   todoItemEl.innerText = todo.todoItem
   const deleteIcon = document.createElement('span')
   deleteIcon.classList.add('fas', 'fa-times', 'mar-l-xs', 'delete')
@@ -61,7 +61,7 @@ function deleteTodo (todoId) {
   })
     .then(res => res.json())
     .then(data => {
-      const itemToRemove = document.querySelector(`li[data-id='${todoId}']`)
+      const itemToRemove = document.querySelector(`#item-${todoId}`)
       itemToRemove.remove()
     })
 }
