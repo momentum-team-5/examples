@@ -33,8 +33,38 @@ def calculate_pay(hours_worked, hourly_rate):
     return regular_hours * hourly_rate + overtime_hours * overtime_rate
 
 
+def join_collection(coll, sep=" "):
+    """
+    Convert elements of coll to a string and join with sep.
+    """
+    output_items_as_str = []
+
+    for item in coll:
+        output_items_as_str.append(str(item))
+
+    return sep.join(output_items_as_str)
+
+
 def save_results_in_csv(fname, row):
     """
     Append a row to a CSV file.
     """
-    pass
+    row_as_strings = join_collection(row, sep=";")
+    
+    with open(fname, "at+") as csv:
+        csv.write(row_as_strings)
+        csv.write('\n')
+
+
+def show_csv(fname):
+    """
+    Pretty-print the data in a CSV file.
+    """
+
+    with open(fname, "rt") as csv:
+        csv_iter = iter(csv)
+        next(csv_iter)
+        
+        for row in csv_iter:
+            pretty_row = row.strip().replace(";", ",  ")
+            print(pretty_row)
