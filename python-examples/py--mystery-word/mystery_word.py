@@ -5,6 +5,17 @@ NUM_TURNS = 8
 WORDS_FILE = "words.txt"
 
 
+def show_guessed_so_far(word_to_guess, letters_to_guess, letters_guessed):
+    """
+    1. Create an output string by assigning from word_to_guess.
+    2. For every letter in letters_to_guess:
+        2a. If the letter is not an element in letters_guessed, replace its occurrences in the output string with '_'.
+        2b. Otherwise, continue at the top of loop.
+    3. Return the output string.
+    """
+    pass
+
+
 def play_game(word_to_guess):
     """
     1. Initialize the game state based on word_to_guess.
