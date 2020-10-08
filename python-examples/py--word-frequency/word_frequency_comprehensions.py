@@ -49,47 +49,8 @@ def print_word_freq(file):
     # print(words)
 
     # Step 4: break the file contents into words
-    wordslist = words.split()
-
-    # print("After step 4:")
-    # print(wordslist)
-
-    # Step 5: Remove words from the list STOP_WORDS
-    for s_w in STOP_WORDS:
-        while s_w in wordslist:
-            wordslist.remove(s_w)
-
-    # print("After step 5:")
-    # print(wordslist)
-
-    # Step 6: Iterate through wordslist and count occurrences of each word
-    # Step 6a: create a dictionary to hold word counts
-    wordscounts = {}
-
-    # Step 6b: iterate through the words in wordslist
-    for w in wordslist:
-        # Step 6c: check if w has already been seen
-        if w in wordscounts:
-            # Step 6cA: if it has, add 1 to the count
-            wordscounts[w] += 1
-
-        else:
-            # Step 6cB: if it hasn't, set the count to 1
-            wordscounts[w] = 1
-
-    # An alternative way to do the steps above
-    # for w in wordslist:
-    #    if w not in wordscounts:
-    #        wordscounts[w] = 0
-
-    #    wordscounts[w] += 1
-
-    # Another alternative way to do the steps above
-    # from collections import Counter
-    # wordscounts = Counter(wordslist)
-
-    # print("After step 6:")
-    # print(wordscounts)
+    wordslist = [w for w in words.split() if w not in STOP_WORDS]
+    wordscounts = {w: wordslist.count(w) for w in set(wordslist)}
 
     # Step 7: get formatted output and print it
     formatted = format_word_freq(wordscounts)
