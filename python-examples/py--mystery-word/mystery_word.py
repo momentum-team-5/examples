@@ -1,8 +1,55 @@
+#!/usr/local/bin/python3
 from random import choice
 
 # Global constants
 NUM_TURNS = 8
 WORDS_FILE = "words.txt"
+
+
+def check_victory(letters_guessed, letters_to_guess):
+    """
+    1. Loop through all of the letters in `letters_to_guess`.
+    2. For each letter:
+        2a. If the letter is not an element of `letters_guessed`, return False.
+    3. Return True.
+    """
+    for letter in letters_to_guess:
+        if letter not in letters_guessed:
+            return False
+
+    # assert every element of letters_to_guess is an element of letters_guessed
+    return True
+
+    """
+    # check_victory using subset operations
+    return letters_to_guess <= letters_guessed
+    """
+
+
+def get_guess(letters_guessed):
+    """
+    1. Set up an input validation loop (use `while True`).
+    2. Get user input and convert it to lowercase.
+        2a. If user input is not a letter, tell the user their guess is invalid.
+        2b. If user input is already an element of `letters_guessed`, tell the user they've already guessed that letter.
+        2c. If user guessed more than one letter, let them know they may only guess a single letter at a time.
+        2d. Otherwise, return the user guess.
+    """
+    while True:
+        user_input = input("Enter a letter to guess: ").lower()
+
+        if not user_input.isalpha():
+            print("You may only guess letters!")
+
+        elif user_input in letters_guessed:
+            print("You've already guessed that!")
+            print(f"As a reminder, you've guessed {', '.join(letters_guessed)}.")
+
+        elif len(user_input) != 1:
+            print("You may only guess one letter at a time!")
+
+        else:
+            return user_input
 
 
 def show_guessed_so_far(word_to_guess, letters_to_guess, letters_guessed):
@@ -13,7 +60,13 @@ def show_guessed_so_far(word_to_guess, letters_to_guess, letters_guessed):
         2b. Otherwise, continue at the top of loop.
     3. Return the output string.
     """
-    pass
+    occulted_word = " ".join(word_to_guess)
+
+    for letter in letters_to_guess:
+        if letter not in letters_guessed:  # if this letter has not been guessed by the player
+            occulted_word = occulted_word.replace(letter, "_")
+
+    print(occulted_word)    
 
 
 def play_game(word_to_guess):
@@ -78,10 +131,13 @@ def read_words(filename):
     3. Use the .split() method to break the file contents at newline characters.
     4. return the result of step 3.
     """
-    pass
+    with open(filename) as wordsfile:
+        words = wordsfile.read().lower()
+
+    return words.split()
 
 
-def filtered_by_difficulty(words, desired_difficulty):
+def filter_by_difficulty(words, desired_difficulty):
     """
     HINT: LIST COMPREHENSIONS WOULD WORK GREAT HERE.
 
@@ -91,7 +147,14 @@ def filtered_by_difficulty(words, desired_difficulty):
         1c. if 'hard', filter from `words` all words whose length is less than 8.
     2. Return the list obtained in step 1.
     """
-    pass
+    if desired_difficulty == 'easy':
+        return [w for w in words if 4 <= len(w) <= 6]
+
+    elif desired_difficulty == 'normal':
+        return [w for w in words if 6 <= len(w) <= 8]
+
+    else:
+        return [w for w in words if 8 < len(w)]
 
 
 def get_word_to_guess(desired_difficulty):
@@ -113,7 +176,33 @@ def get_user_difficulty():
         2b. if the user input is not 'easy', 'normal', or 'hard', alert the user that the input is invalid
         2c. otherwise, return the user input (normalize to lowercase).
     """
-    pass
+    while True:
+        user_input = input("Select a difficulty ('easy', 'normal', 'hard'): ").lower()
+
+        if user_input in {'easy', 'normal', 'hard'}:
+            return user_input
+
+        print("Invalid difficulty. Valid values are 'easy', 'normal', and 'hard'.")
+
+
+def prompt_play_again():
+    """
+    1. Set up an input validation loop.
+    2. Get user input.
+        2a. If the input is 'yes', return `True`.
+        2b. If the input is 'no', return `False`.
+        2c. Otherwise, inform the user that the option is invalid.
+    """
+    while True:
+        user_selection = input("Play again? ('yes'/'no'): ").lower()
+
+        if user_selection == 'yes':
+            return True
+
+        elif user_selection == 'no':
+            return False
+
+        print("Invalid selection. Enter 'yes' or 'no'.")
 
 
 def run_game_loop():
