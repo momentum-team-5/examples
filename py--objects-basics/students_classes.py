@@ -4,8 +4,22 @@ def classname(self, fmt=str.capitalize):
     """
     return fmt(self.__class__.__name__)
 
+# Object Oriented Programming Vocabulary
+
+# OOP          - Object Oriented Programming
+# class        - A template for an object describing what methods it 
+#                implements and what attributes it posesses.
+# instance     - a member of a class (if Cat is a class, my cat Hobbes is an instance of a Cat).
+# methods      - functions defined within a class called as though they were attributes of the 
+#                class or instance
+# inheritance  - when one class is used as the basis for another class (see below)
+# parent/child - the relationship between classes when one inherits from another
+# extension    - when methods or attributes are added to a child class
+# overriding   - when methods from a parent class are rewritten for a child class
+
 # 1: The most basic type of class: an __init__ method where we initialize instance attributes
 # and a __str__ method, allowing us to get a human-readable str representation of the object
+
 class Creature:
     def __init__(self, name, age):
         self.name = name
