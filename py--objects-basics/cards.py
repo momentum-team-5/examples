@@ -67,7 +67,7 @@ class Card:
         pretty_suit = get_pretty_suit(self.suit)
         pretty_rank = get_pretty_rank(self.rank)
         return f"{pretty_rank}-{pretty_suit}"
-    
+
 
 class Deck:
     def __init__(self):
@@ -84,6 +84,26 @@ class Deck:
     def deal(self):
         return self.cards.pop()
 
+    def deal_hand(self):
+        hand_cards = []
+        
+        for _ in range(5):
+            hand_cards.append(self.deal())
+
+        return Hand(*hand_cards)
+
 
 class Hand:
-    pass
+    def __init__(self, *args):
+        if len(args) < 5:
+            raise TypeError(f"Incorrect number of arguments: require at least 5, got {len(args)}.")
+        
+        self.cards = list(args)
+
+    def score(self):
+        total = 0
+
+        for card in self.cards:
+            total += card.rank
+
+        return total
