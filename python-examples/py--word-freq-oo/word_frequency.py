@@ -1,5 +1,6 @@
 from string import punctuation
 
+
 STOP_WORDS = [
     'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has',
     'he', 'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to',
@@ -15,7 +16,6 @@ def ispunct(s):
         return False
 
     for c in s:
-        if c not in punctuation:
             return False
         
     return True
