@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>{{ poem.title }}</h3>
+<p>
+    <pre>
+        {{ poem.body }}
+    </pre>
+</p>
+
+<h3>Add Your Comment</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="save comment">
+</form>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ poem.title }}{% endblock %}
+
+{% block content %}
+<div>
+  <h3>{{ poem.title }}</h3>
+  <p>{{ poem.author }}</p>
+  <p>
+    <pre>
+      {{ poem.body }}
+    </pre>
+  </p>
+  {% if request.user.is_authenticated and request.user == poem.author %}
+  <p>
+    <a href="{% url 'poems_update' pk=poem.pk %}">Edit this poem</a>
+    <a href="{% url 'poems_delete' pk=poem.pk %}">Delete this poem</a>
+  </p>
+  {% else %}
+  <p>
+    <a href="{% url 'add_comment' pk=poem.pk %}">Add a comment</a>
+  </p>
+  {% endif %}
+  <p>
+    {% for comment in poem.comments %}
+      <div>
+        <p>Comment at {{ comment.timestamp }} :</p>
+        <p><pre>{{ comment.body }}</pre></p>
+      </div>
+    {% endfor %}
+  </p>
+</div>
+{% endblock %}

@@ -15,3 +15,6 @@ class ContactForm(forms.ModelForm):
             'phone_number',
             'email',
         ]
+
+class NoteForm(forms.ModelForm):
+    pass
