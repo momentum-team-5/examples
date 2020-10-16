@@ -5,6 +5,7 @@ from .forms import ContactForm
 
 # Create your views here.
 def list_contacts(request):
+    # print(request)
     contacts = Contact.objects.all()
     return render(request, "contacts/list_contacts.html",
                   {"contacts": contacts})
@@ -13,6 +14,7 @@ def list_contacts(request):
 def add_contact(request):
     if request.method == 'GET':
         form = ContactForm()
+
     else:
         form = ContactForm(data=request.POST)
         if form.is_valid():
