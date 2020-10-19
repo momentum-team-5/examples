@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>All Contacts</h1>
-
-<p><a href="{% url 'add_contact' %}">Add New Contact</a></p>
+<h1>Add Note</h1>
 
 <div class="flex flex-wrap">
-  {% for contact in contacts %}
   <div class="w-33 pa3">
     <h2>{{ contact.name }}</h2>
 
@@ -40,13 +37,14 @@
         <div>{{ contact.birthday }}</div>
       </div>
     {% endif %}
-    <p>
-      <a href="{% url 'edit_contact' pk=contact.pk %}">Edit Contact</a><br>    
-      <a class="red" href="{% url 'delete_contact' pk=contact.pk %}">Delete Contact</a><br>
-      <a href="{% url 'contact_detail' pk=contact.pk %}">More Information</a><br>
-      <a href="{% url 'add_note' pk=contact.pk %}">Add Note</a>
-    </p>
-  </div>
-  {% endfor %}
-</div>  
+
+    <h2>Your Note</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <input type="submit" value="create this note">
+    </form>
+
 {% endblock %}
