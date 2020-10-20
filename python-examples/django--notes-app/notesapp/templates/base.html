@@ -1,8 +1,12 @@
+{% load static %}
+{% load bootstrap %}
+
 <!doctype html>
 <html lang="en-US">
     <head>
         <meta charset="utf-8">
         <title>{% block title %}Notes{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
     <body>
         {% block content %}

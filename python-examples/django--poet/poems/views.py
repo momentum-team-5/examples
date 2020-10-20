@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.mail import send_mail, mail_admins
+from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
 from .models import Poem, Comment
-from .forms import PoemForm, CommentForm
+from .forms import PoemForm, CommentForm, ContactForm
 
 
 # Create your views here.
@@ -38,7 +40,12 @@ def poems_create(request):
             poem = form.save(commit=False)
             poem.author = request.user
             poem.save()
+            success(request, "Poem added.")
             return redirect(to="poems_list")
+
+        else:
+            error(request, "Problem with your submission.")
+
 
     return render(request, "poems/poems_create.html", {"form": form})
 
@@ -93,3 +100,23 @@ def add_comment(request, pk):
             return redirect(to='poems_list')
 
     return render(request, "poems/add_comment.html", {"form": form, "poem": poem })
+
+
+def contact(request):
+    if request.method == "GET":
+        form = ContactForm()
+
+    else:
+        form = ContactForm(data=request.POST)
+
+        if form.is_valid():
+            send_confirmation_to = form.cleaned_data['email']
+            message_title = form.cleaned_data['title']
+            message_body = form.cleaned_data['body']
+
+            send_mail("Your message was received", "Your message was received. Expect a response shortly!", recipient_list=[send_confirmation_to])
+            mail_admins(message_title, message_body, fail_silently=True)
+
+            return redirect(to='poems_list')
+
+    return render(request, "contact_us.html", {"form": form})

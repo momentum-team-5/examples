@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ note.title }}</h2>
+
+<p class="note-body"> {{ note.body }}</p>
+<p class="note-created">{{ note.created_at }}</p>
+<p class="note-updated">{{ note.updated_at }}</p>
+
+{# put links to update and delete notes here #}
+
+{% endblock %}

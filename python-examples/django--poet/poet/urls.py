@@ -20,6 +20,7 @@ from poems import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('contact/', views.contact, name='contact_us'),
     path('accounts/', include('registration.backends.simple.urls')),
     path('', views.poems_list, name='poems_list'),
     path('<int:pk>/', views.poems_detail, name='poems_detail'),

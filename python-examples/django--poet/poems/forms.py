@@ -23,3 +23,12 @@ class CommentForm(forms.ModelForm):
         fields = [
             'body'
         ]
+
+
+class ContactForm(forms.Form):
+    """
+    A simple contact form.
+    """
+    email = forms.EmailField(required=True)
+    title = forms.CharField(required=True, max_length=255)
+    body = forms.CharField(label="Your messsage", widget=forms.Textarea(attrs={'required': True}))
