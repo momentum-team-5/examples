@@ -26,5 +26,6 @@ urlpatterns = [
     path('poems/<int:pk>/', poems_views.poems_detail, name='poems_detail'),
     path('poems/add/', poems_views.add_poem, name='add_poem'),
     path('poems/<int:pk>/edit/', poems_views.edit_poem, name='edit_poem'),
-    path('poems/<int:pk>/delete/', poems_views.delete_poem, name='delete_poem')
+    path('poems/<int:pk>/delete/', poems_views.delete_poem, name='delete_poem'),
+    path('poems/search/', poems_views.search_poems, name="search_poems")
 ]

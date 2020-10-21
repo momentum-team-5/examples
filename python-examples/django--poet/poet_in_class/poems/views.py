@@ -3,7 +3,7 @@ from django.core.mail import send_mail, mail_admins
 from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
 from .models import Poem, Comment
-from .forms import PoemForm, CommentForm, ContactForm
+from .forms import PoemForm, CommentForm, ContactForm, SearchForm
 
 
 # Create your views here.
@@ -118,3 +118,21 @@ def contact(request):
             error("Your message couldn't be sent :(.")
 
         return render(request, "contact.html", {"form": form})
+
+
+def search_poems(request):
+    if request.method == "GET":
+        form = SearchForm()
+
+    elif request.method == "POST":
+        form = SearchForm(data=request.POST)
+
+        if form.is_valid():
+            # grab form fields and get all matching poem objects
+            title = form.cleaned_data['title']
+            order_by = form.cleaned_data['order_by']
+            poems = Poem.objects.filter(title__contains=title).order_by(order_by)
+
+            return render(request, "poems/search_results.html", {"poems": poems})
+
+    return render(request, "poems/search.html", {"form": form})

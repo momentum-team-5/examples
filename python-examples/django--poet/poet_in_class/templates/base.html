@@ -13,6 +13,7 @@
     <body>
         <header class="menu">
             <a href="{% url 'poems_list' %}">all poems</a>
+            <a href="{% url 'search_poems' %}">search poems</a>
             {% if request.user.is_authenticated %}
                 <a href="{% url 'add_poem' %}">write a new poem</a>
                 <a href="/accounts/logout/">logout</a>

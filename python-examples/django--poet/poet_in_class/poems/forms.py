@@ -23,3 +23,8 @@ class ContactForm(forms.Form):
     email = forms.EmailField(required=True)
     title = forms.CharField(max_length=255)
     body = forms.CharField(required=True, widget=forms.Textarea)
+
+
+class SearchForm(forms.Form):
+    title = forms.CharField(max_length=255)
+    order_by = forms.ChoiceField(choices=[("title", "title"), ("body", "body")])
