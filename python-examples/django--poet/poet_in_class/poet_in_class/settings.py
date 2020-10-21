@@ -137,3 +137,4 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # registration settings
 SIMPLE_BACKEND_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'

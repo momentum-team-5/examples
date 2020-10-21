@@ -6,12 +6,16 @@
 
 <div class="poem-wrapper">
 
-    {{ poem.render_html }}
+    <div class='poem-container'>
+        <h4>{{ poem.title }}</h4>
+        <p class='poem-author'>{{ poem.author }}</p>
+        <p class='poem-body'><pre>{{ poem.body }}</pre></p>
+    </div>
 
     {% if request.user.is_authenticated and request.user == poem.author %}
         <p>
             <a href="{% url 'edit_poem' pk=poem.pk %}">edit your poem</a>
-            <a href="{% url 'delete_poem' pk=poem.pk %}">retire your poem</a>
+            <a href="{% url 'delete_poem' pk=poem.pk %}" style="color:red;">retire your poem</a>
         </p>
     {% endif %}
 
@@ -26,7 +30,9 @@
 
         {% for comment in comments %}
             <hr>
-            {{ comment.render_html }}
+            <div class='poem-comment-container'>
+                <p class='timestamp'>Comment on ({{ comment.timestamp }}): <pre>{{ comment.body }}</pre></p>
+            </div>
         {% endfor %}
 
     </div>

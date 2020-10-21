@@ -5,15 +5,16 @@
 <h3>All Poems!</h3>
 
 <div class="poems-container">
-    
-    {% for poem in poems %}
-        <div class="poems-wrapper">
 
-            {{ poem.render_html }}
-            
+    {% for poem in poems %}
+
+    <div class='poem-container'>
+            <h4>{{ poem.title }}</h4>
+            <p class='poem-author'>    by {{ poem.author }}</p>
+            <pre class='poem-body'>{{ poem.body }}</pre>
             <p><a href="{% url 'poems_detail' pk=poem.pk %}">More information</a></p>
-        
         </div>
+
     {% endfor %}
 
 </div>

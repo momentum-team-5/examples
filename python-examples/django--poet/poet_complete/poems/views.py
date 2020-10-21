@@ -52,7 +52,7 @@ def add_poem(request):
             poem = form.save(commit=False)
             poem.author = request.user # associate the new poem with the currently signed in user
             poem.save()
-
+ 
             success(request, "Your poem was created!")
 
             return redirect(to="poems_list")
@@ -117,7 +117,7 @@ def contact(request):
         else:
             error("Your message couldn't be sent :(.")
 
-        return render(request, "contact.html", {"form": form})
+    return render(request, "contact.html", {"form": form})
 
 
 def search(request):
@@ -146,6 +146,9 @@ def search(request):
                     poems = poems.filter(title__exact=title)
 
             if body:
+                poems = poems.filter(body__contains=body)
+            
+            """
                 body_search_type = form.cleaned_data['body_search_type']
 
                 if body_search_type == "starts with":
@@ -156,6 +159,7 @@ def search(request):
 
                 else:
                     poems = poems.filter(body__exact=body)
+            """
 
             poems = poems.order_by(order_by)
 

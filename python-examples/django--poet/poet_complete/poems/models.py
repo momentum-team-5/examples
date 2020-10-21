@@ -2,6 +2,7 @@ from django.db import models
 # This is django's builtin user class
 from django.contrib.auth.models import User
 
+
 class Comment(models.Model):
     """
     An anonymous comment on a poem.

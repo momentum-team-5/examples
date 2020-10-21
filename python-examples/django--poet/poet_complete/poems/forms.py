@@ -41,16 +41,17 @@ class SearchForm(forms.Form):
     )
 
     # Form fields
-    title = forms.CharField(max_length=255)
+    title = forms.CharField(max_length=255, required=True)
     title_search_type = forms.ChoiceField(choices=SEARCH_TYPES_CHOICES, label="search title for", widget=forms.RadioSelect, required=True)
-    body = forms.CharField(widget=forms.Textarea)
+    body = forms.CharField(widget=forms.Textarea, required=False)
     body_search_type = forms.ChoiceField(choices=SEARCH_TYPES_CHOICES, label="search body for", widget=forms.RadioSelect, required=True)
     order_by = forms.ChoiceField(choices=ORDER_CHOICES, widget=forms.RadioSelect, required=True)
-
+    
     def clean(self):
         """
         Require at least one of title and body to be non-blank.
         """
+
         cleaned_data = super().clean()
         cleaned_title = cleaned_data['title']
         cleaned_body = cleaned_data['body']
