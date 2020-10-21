@@ -1,4 +1,4 @@
-"""notesapp URL Configuration
+"""poet_in_class URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -14,15 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from notes import views as notes_views
+from django.urls import path, include
+from poems import views as poems_views
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', notes_views.notes_list, name='notes_list'),
-    path('contact/', notes_views.contact_us, name='contact_us'),
-    path('notes/<int:pk>', notes_views.notes_detail, name='notes_detail'),
-    path('notes/add/', notes_views.add_note, name="add_note"),
-    path('notes/<int:pk>/edit/', notes_views.edit_note, name='edit_note'),
-    path('notes/<int:pk>/delete/', notes_views.delete_note, name='delete_note'),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('contact/', poems_views.contact, name='contact'),
+    path('', poems_views.poems_list, name='poems_list'),
+    path('poems/<int:pk>/', poems_views.poems_detail, name='poems_detail'),
+    path('poems/add/', poems_views.add_poem, name='add_poem'),
+    path('poems/<int:pk>/edit/', poems_views.edit_poem, name='edit_poem'),
+    path('poems/<int:pk>/delete/', poems_views.delete_poem, name='delete_poem'),
+    path('poems/search/', poems_views.search, name='poems_search')
 ]

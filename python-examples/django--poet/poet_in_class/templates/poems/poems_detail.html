@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h3>{{ poem.title }}</h3>
+
+<div class="poem-wrapper">
+
+    {{ poem.render_html }}
+
+    {% if request.user.is_authenticated and request.user == poem.author %}
+        <p>
+            <a href="{% url 'edit_poem' pk=poem.pk %}">edit your poem</a>
+            <a href="{% url 'delete_poem' pk=poem.pk %}">retire your poem</a>
+        </p>
+    {% endif %}
+
+    <hr>
+
+    <div class="comments-container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="submit your constructive feedback/adulation">
+        </form>
+
+        {% for comment in comments %}
+            <hr>
+            {{ comment.render_html }}
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}

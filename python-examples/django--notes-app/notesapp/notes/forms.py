@@ -9,8 +9,3 @@ class NoteForm(forms.ModelForm):
             'title',
             'body'
         ]
-
-
-class ContactForm(forms.Form):
-    email = forms.EmailField()
-    body = forms.Textarea()

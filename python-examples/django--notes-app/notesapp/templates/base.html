@@ -1,5 +1,4 @@
 {% load static %}
-{% load bootstrap %}
 
 <!doctype html>
 <html lang="en-US">
@@ -9,7 +8,26 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     </head>
     <body>
-        {% block content %}
-        {% endblock %}
+        <header class="menu">
+            <a href="{% url 'add_note' %}">Add a Note</a>
+        </header>
+        
+        <main>
+
+            {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                        <p class="{{ message.tag }}"> {{ message }} </p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="menu">
+            <a href="{% url 'contact_us' %}">Contact Us</a>
+        </footer>
     </body>
 </html>

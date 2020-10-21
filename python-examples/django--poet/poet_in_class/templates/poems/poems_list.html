@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h3>All Poems!</h3>
+
+<div class="poems-container">
+    
+    {% for poem in poems %}
+        <div class="poems-wrapper">
+
+            {{ poem.render_html }}
+            
+            <p><a href="{% url 'poems_detail' pk=poem.pk %}">More information</a></p>
+        
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,12 +1,69 @@
-h2, p {
+* {
     font-family: sans-serif;
+    box-sizing: border-box;
+    margin: 0;
 }
 
+a {
+    color: black;
+}
 
-.flex-container {
+.menu {
     display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: #ababab;
 }
 
-.flex-item {
-    flex: 1 1 auto;
+.menu > a {
+    text-decoration: none;
+    padding: 0.2em;
+    color: #111111;
 }
+
+.menu > a:hover {
+    color: white;
+    background-color: black;
+    transition-duration: 200ms; 
+}
+
+header {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 10vh;
+}
+
+header.menu {
+    margin-bottom: 1em;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 10vh;
+}
+
+footer.menu {
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+main {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+

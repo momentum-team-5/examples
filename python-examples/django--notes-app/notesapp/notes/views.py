@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.messages import success, error
 from .models import Note
-from .forms import NoteForm, ContactForm
+from .forms import NoteForm
+
 
 # Create your views here.
 def notes_list(request):
@@ -17,27 +19,50 @@ def notes_detail(request, pk):
 
 # The following three view functions use NoteForm and ContactForm
 def add_note(request):
-    # Some stuff needs to go here
+    if request.method == "GET":
+        form = NoteForm()
+
+    else:
+        form = NoteForm(data=request.POST)
+
+        if form.is_valid():
+            form.save()
+            success(request, "Note added!")
+            redirect(to="notes_list")
+
+        else:
+            error(request, "Could not add note :( .")
 
     return render(request, "notes/add_note.html", {"form": form})
 
 
 def edit_note(request, pk):
-    # Some stuff needs to go here
+    note = get_object_or_404(Note, pk=pk)
+    
+    if request.method == "GET":
+        form = NoteForm(instance=note)
+
+    else:
+        form = NoteForm(data=request.POST, instance=note)
+
+        if form.is_valid():
+            form.save()
+            success(request, "Note updated!")
+            redirect(to="notes_list")
+
+        else:
+            error(request, "Could not update note :( .")
 
     return render(request, "notes/edit_note.html", {"form": form})
 
 
+def delete_note(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    note.delete()
+    success(request, "Note deleted!")
+
+    return redirect(to="notes_list")
+
+
 def contact_us(request):
-    if request.method == "GET":
-        form = ContactForm()
-
-    else:
-        form = ContactForm(data=request.POST)
-
-        respond_email = form.cleaned_data['email']
-        message_body = form.cleaned_data['body']
-
-        # Email the user that their message was received and email the admin the user's message
-
-    return render(request, "notes/contact_us.html", {"form": form})
+    return redirect(to="notes_list")

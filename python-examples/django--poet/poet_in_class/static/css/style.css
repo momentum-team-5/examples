@@ -1,0 +1,47 @@
+* {
+    font-style: sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+a {
+    color: black;
+}
+
+.menu {
+    display: flex;
+    background-color: #ababab;
+    flex: 1 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.menu > a {
+    text-decoration: none;
+}
+
+.menu > a:hover {
+    background-color: black;
+    color: white;
+    transition-duration: 200ms;
+}
+
+.messages {
+    background-color: lightyellow;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+    font-weight: bolder;
+}
+
+.poems-container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
