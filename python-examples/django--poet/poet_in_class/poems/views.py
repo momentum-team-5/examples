@@ -10,7 +10,7 @@ from .forms import PoemForm, CommentForm, ContactForm, SearchForm
 def poems_list(request):
     poems = Poem.objects.all()
 
-    return render(request, "poems/poems_list.html")
+    return render(request, "poems/poems_list.html", {"poems": poems})
 
 
 def poems_detail(request, pk):
@@ -136,3 +136,19 @@ def search_poems(request):
             return render(request, "poems/search_results.html", {"poems": poems})
 
     return render(request, "poems/search.html", {"form": form})
+
+
+def add_favorite(request, pk):
+    poem = get_object_or_404(Poem, id=pk)
+
+    if request.user.is_authenticated:
+        if poem.favorites.filter(id=request.user.pk).count() == 0:
+            poem.favorites.add(request.user)
+            success(request, "Favorite added :)")
+
+        # do nothing if they've already favorited
+
+    else:
+        error(request, "Only signed in users can favorite.")
+    
+    return redirect(to="poems_list")
