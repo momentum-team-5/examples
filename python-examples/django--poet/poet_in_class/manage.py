@@ -15,7 +15,11 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+    print("About to read command line arguments.")
+    print(f"Contents of sys.argv: {sys.argv}")
     execute_from_command_line(sys.argv)
+
+    print("Ready to go!")
 
 
 if __name__ == '__main__':

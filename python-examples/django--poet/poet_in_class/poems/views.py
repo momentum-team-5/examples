@@ -16,6 +16,13 @@ def poems_list(request):
 def poems_detail(request, pk):
     # NOTE: this view doubles as the endpoint for adding comments
     poem = get_object_or_404(Poem, pk=pk)
+    """
+    try:
+        poem = Poem.objects.get(pk=pk)
+    
+    except Exception as e:
+        raise HTTTP404Exception
+    """
     comments = poem.comments
 
     if request.method == "GET":

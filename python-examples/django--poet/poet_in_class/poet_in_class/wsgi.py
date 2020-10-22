@@ -13,4 +13,8 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'poet_in_class.settings')
 
+print("Creating wsgi application.")
+
 application = get_wsgi_application()
+
+print("WSGI application ready to go!")
