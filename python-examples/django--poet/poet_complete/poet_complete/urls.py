@@ -18,7 +18,6 @@ from django.urls import path, include
 from poems import views as poems_views
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
@@ -28,5 +27,6 @@ urlpatterns = [
     path('poems/add/', poems_views.add_poem, name='add_poem'),
     path('poems/<int:pk>/edit/', poems_views.edit_poem, name='edit_poem'),
     path('poems/<int:pk>/delete/', poems_views.delete_poem, name='delete_poem'),
-    path('poems/search/', poems_views.search, name='poems_search')
+    path('poems/search/', poems_views.search, name='poems_search'),
+    path('poems/favorite/<int:pk>/<int:user_pk>/', poems_views.add_favorite, name='poems_add_favorite')
 ]

@@ -19,7 +19,11 @@ class Poem(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    favorites = models.ManyToManyField(User, related_name="favorite")
 
     @property
     def comments(self):
         return Comment.objects.filter(poem=self)
+
+    def numfavorites(self):
+        return self.favorites.all().count()

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail, mail_admins
 from django.contrib.messages import success, error
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import Poem, Comment
 from .forms import PoemForm, CommentForm, ContactForm, SearchForm
@@ -104,8 +105,8 @@ def contact(request):
 
         if form.is_valid():
             user_email = form.cleaned_data['email']
-            message_title = form.cleaned_data['title']
-            message_body = form.cleaned_data['body']
+            message_title = form.cleaned_data['message_title']
+            message_body = form.cleaned_data['message_body']
 
             send_mail("Poems - Your message has been sent", "Your message has been sent! Expect to hear from an admin soon!", recipient_list=[user_email])
             mail_admins(message_title, message_body, fail_silently=True)
@@ -115,7 +116,7 @@ def contact(request):
             return redirect(to="poems_list")
 
         else:
-            error("Your message couldn't be sent :(.")
+            error(request, "Your message couldn't be sent :(.")
 
     return render(request, "contact.html", {"form": form})
 
@@ -130,39 +131,26 @@ def search(request):
         if form.is_valid():
             poems = Poem.objects.all()
             title = form.cleaned_data['title']
-            body = form.cleaned_data['body']
             order_by = form.cleaned_data['order_by']
-
-            if title:
-                title_search_type = form.cleaned_data['title_search_type']
-
-                if title_search_type == "starts with":
-                    poems = poems.filter(title__startswith=title)
-
-                elif title_search_type == "includes":
-                    poems = poems.filter(title__contains=title)
-
-                else:
-                    poems = poems.filter(title__exact=title)
-
-            if body:
-                poems = poems.filter(body__contains=body)
-            
-            """
-                body_search_type = form.cleaned_data['body_search_type']
-
-                if body_search_type == "starts with":
-                    poems = poems.filter(body__startswith=body)
-
-                elif body_search_type == "includes":
-                    poems = poems.filter(body__contains=body)
-
-                else:
-                    poems = poems.filter(body__exact=body)
-            """
-
-            poems = poems.order_by(order_by)
+            poems = Poem.objects.filter(title__contains=title).order_by(order_by)
 
             return render(request, "poems/search_results.html", {"poems": poems})
 
     return render(request, "poems/search.html", {"form": form})
+
+
+def add_favorite(request, pk, user_pk):
+    """
+    Add a favorite to the Poem whose primary key is equal to `pk`.
+    """
+    poem = get_object_or_404(Poem, pk=pk)
+    user = get_object_or_404(User, pk=user_pk)
+
+    # Avoid adding a user twice by checking poem.favorites
+    if poem.favorites.filter(pk=user_pk).count() == 0:
+        poem.favorites.add(user)
+        success(request, "Favorite added :)")
+
+    # Take no action otherwise
+
+    return redirect(to="poems_list")
