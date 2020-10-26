@@ -3,14 +3,18 @@ function formEventHandler(event) {
 
     let form = event.target;
     let url = form.action;
+
     let request = {
-        "method": form.method,
-        "body": form,
+        method: form.method,
+        body: form,
+        mode: "same-origin",
+        headers: {
+            "x-csrftoken": form.elements["csrfmiddlewaretoken"].value,
+        },
     }
 
     fetch(url, request)
-    .then(resp => resp.json())
-    .then(json => alert(json.message))
+    .then(resp => console.log(resp))
 }
 
 function sendFavorite(source, url) {

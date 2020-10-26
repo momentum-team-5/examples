@@ -28,24 +28,28 @@ def poems_detail(request, pk):
 
     if request.method == "GET":
         form = CommentForm()
+        return render(request, "poems/poems_detail.html", {"poem": poem, "comments": comments, "form": form})
 
     else:
+        poem = get_object_or_404(Poem, id=pk)
         form = CommentForm(data=request.POST)
 
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.poem = poem  # Make sure the comment is linked to the Poem instance connected to this detail view
-            comment.save()  # Save the new comment instance
-            success(request, "Comment saved!")
+            comment.poem = poem
+            comment.save()
 
-            
-            return redirect(to="poems_detail", pk=poem.pk)
+            resp = {"message": "Comment added!", "body": comment.body}
+            status_code = 201
 
         else:
-            error(request, "Couldn't save comment :(")
+            resp = {"message": "Couldn't save comment :(", "reason": dict(form.errors)}
+            status_code = 400
+
+        return JsonResponse(resp, status=status_code)
+
 
     # This return statement will be the exit point from the view function if the method was GET or validation failed
-    return render(request, "poems/poems_detail.html", {"poem": poem, "comments": comments, "form": form})
 
 
 @login_required
