@@ -14,7 +14,7 @@
             <pre class='poem-body'>{{ poem.body }}</pre>
             <p>
                 <a href="{% url 'poems_detail' pk=poem.pk %}">More information</a>
-                <a href="{% url 'add_favorite' pk=poem.pk %}">{{ poem.numfavorites }} favorites</a>
+                <button onclick="sendFavorite(this, '{% url 'add_favorite' pk=poem.pk %}')">{{ poem.numfavorites }} favorites</a>
             </p> 
         </div>
 

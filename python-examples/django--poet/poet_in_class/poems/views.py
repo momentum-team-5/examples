@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail, mail_admins
 from django.contrib.messages import success, error
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .models import Poem, Comment
 from .forms import PoemForm, CommentForm, ContactForm, SearchForm
 
@@ -151,11 +152,15 @@ def add_favorite(request, pk):
     if request.user.is_authenticated:
         if poem.favorites.filter(id=request.user.pk).count() == 0:
             poem.favorites.add(request.user)
-            success(request, "Favorite added :)")
+            message = "Your favorite was added :)"
 
         # do nothing if they've already favorited
+        else:
+            message = "You can only favorite a message once!"
 
     else:
-        error(request, "Only signed in users can favorite.")
-    
-    return redirect(to="poems_list")
+        message = "Only logged in users can add a favorite!"
+
+    numlikes = poem.numfavorites()
+
+    return JsonResponse({"message": message, "numLikes": numlikes})
